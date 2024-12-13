@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glossário M-Tech</title>
+    <link rel="stylesheet" href="glossário.css">
+</head>
+<body>
+<header>
+    <div class="container">
+        <h1>bem-vindo</h1>
+        <nav>
+            <ul>
+                <li><a href="#">inicio</a></li>
+                <li><a href="#">contatos</a></li>
+                <li><a href="#">sobre</a></li>
+                <li><a href="#">instragram</a></li>
+            </ul>
+            <div class="imagem">
+                <img src="Inserir um título.png" alt="minha_logo" class="logo">
+                
+            </div>
+        </nav>
+    </div>
+</header>
+
+    <div class="title"><h1>Glossário</h1></div>
+    <div class="alfabeto">
+        <div class="letras">
+          <button class="az" onclick="handleAlphabetSearch(A)">A</button>
+          <button class="az" onclick="handleAlphabetSearch(B)">B</button>
+          <button class="az" onclick="handleAlphabetSearch(C)">C</button>
+          <button class="az" onclick="handleAlphabetSearch(D)">D</button>
+          <button class="az" onclick="handleAlphabetSearch(E)">E</button>
+          <button class="az" onclick="handleAlphabetSearch(F)">F</button>
+          <button class="az" onclick="handleAlphabetSearch(G)">G</button>
+          <button class="az" onclick="handleAlphabetSearch(h)">H</button>
+          <button class="az" onclick="handleAlphabetSearch(I)">I</button>
+          <button class="az" onclick="handleAlphabetSearch(J)">J</button>
+          <button class="az" onclick="handleAlphabetSearch(K)">K</button>
+          <button class="az" onclick="handleAlphabetSearch(L)">L</button>
+          <button class="az" onclick="handleAlphabetSearch(N)">N</button>
+          <button class="az" onclick="handleAlphabetSearch(M)">M</button>
+          <button class="az" onclick="handleAlphabetSearch(O)">O</button>
+          <button class="az" onclick="handleAlphabetSearch(P)">P</button>
+          <button class="az" onclick="handleAlphabetSearch(Q)">Q</button>
+          <button class="az" onclick="handleAlphabetSearch(R)">R</button>
+          <button class="az" onclick="handleAlphabetSearch(S)">S</button> 
+          <button class="az" onclick="handleAlphabetSearch(T)">T</button>
+          <button class="az" onclick="handleAlphabetSearch(U)">U</button>
+          <button class="az" onclick="handleAlphabetSearch(V)">V</button>
+          <button class="az" onclick="handleAlphabetSearch(W)">W</button>
+          <button class="az" onclick="handleAlphabetSearch(X)">X</button>
+          <button class="az" onclick="handleAlphabetSearch(Y)">Y</button>
+          <button class="az" onclick="handleAlphabetSearch(Z)">Z</button>
+        </div>
+
+
+
+
+
+
+    <script>
+        // Função para buscar palavras por letra inicial
+        function handleAlphabetSearch(letter) {
+            const searchResults = document.getElementById('searchResults');
+
+            fetch('/search', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ query: letter })
+            })
+            .then(response => response.json())
+            .then(data => {
+                searchResults.innerHTML = '';
+                if (data.results.length > 0) {
+                    data.results.forEach(result => {
+                        const div = document.createElement('div');
+                        div.className = 'result-item';
+                        div.innerHTML = `<h3>${result.word}</h3><p>${result.description}</p>`;
+                        searchResults.appendChild(div);
+                    });
+                } else {
+                    searchResults.innerHTML = '<p>Nenhum resultado encontrado.</p>';
+                }
+            })
+            .catch(error => {
+                console.error('Erro:', error);
+            });
+        }
+    </script>
+</body>
+</html>
